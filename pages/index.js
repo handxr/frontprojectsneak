@@ -24,7 +24,7 @@ const Home = ({products}) => {
 
 export async function getStaticProps() {
   
-  const products = await getProductsApi()
+  const products = await getProductsApi() 
   
 
   return {

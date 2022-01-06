@@ -187,8 +187,8 @@ export default function Navbar() {
                   {navigation.categories.map((category) => (
                     <Tab.Panel key={category.name} className="pt-10 pb-8 px-4 space-y-10">
                       <div className="grid grid-cols-2 gap-x-4">
-                        {category.featured.map((item) => (
-                          <div key={item.name} className="group relative text-sm">
+                        {category.featured.map((item, index) => (
+                          <div key={index} className="group relative text-sm">
                             <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75 relative">
                               <Image src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" layout="fill"/>
                             </div>
@@ -206,10 +206,10 @@ export default function Navbar() {
                           </div>
                         ))}
                       </div>
-                      {category.sections.map((section) => (
-                        <div key={section.name}>
+                      {category.sections.map((section, index) => (
+                        <div key={index}>
                           <Link href={section.href}>
-                            <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-900">
+                            <p  className="font-medium text-gray-900">
                               {section.name}
                             </p>
                           </Link>
@@ -350,8 +350,8 @@ export default function Navbar() {
                                 <div className="max-w-7xl mx-auto px-8">
                                   <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
                                     <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                      {category.featured.map((item) => (
-                                        <div key={item.name} className="group relative text-base sm:text-sm">
+                                      {category.featured.map((item, index) => (
+                                        <div key={index} className="group relative text-base sm:text-sm">
                                           <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75 relative">
                                             <Image
                                               src={item.imageSrc}
@@ -373,8 +373,8 @@ export default function Navbar() {
                                       ))}
                                     </div>
                                     <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
-                                      {category.sections.map((section) => (
-                                        <div key={section.name}>
+                                      {category.sections.map((section, index) => (
+                                        <div key={index}>
                                           <Link href={section.href}>
                                             <p id={`${section.name}-heading`} className="cursor-pointer font-medium text-gray-900">
                                               {section.name}
@@ -409,10 +409,10 @@ export default function Navbar() {
                   ))}
 
                   {navigation.pages.map((page) => (
-                    <Link href={page.href}>
-
+                    <Link href={page.href} key={page.name}>
+ 
                       <a
-                        key={page.name}
+                       
 
                         className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                       >
