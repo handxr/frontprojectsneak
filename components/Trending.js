@@ -27,6 +27,8 @@ function Trending({ products }) {
                   src={product.image}
                   alt="product"
                   layout="fill"
+                  placeholder="blur"
+                  blurDataURL
                  
 
 
