@@ -33,7 +33,7 @@ function Trending({ products }) {
                 />
               </div>
               <h3 className="mt-4 text-sm font-bold text-gray-900">
-                <Link href="/">
+                <Link href={product.title.slice(" ")}>
                   <a >
                     <span className="absolute inset-0" />
                     {product.title}
