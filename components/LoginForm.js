@@ -18,10 +18,9 @@ const LoginForm = ({ openCloseModal }) => {
             try {
                 const response = await loginApi(formValue)
                 const { access } = response
-                setLoading(true)
                 login(access)
-                setLoading(false)
-                openCloseModal()
+                window.location.reload()
+                
 
             } catch (error) {
                 console.log("Error")

@@ -11,6 +11,7 @@ import zapa from '../assets/images/zapa.jpg'
 
 const navigation = {
 
+
   categories: [
     {
       id: 'women',
@@ -34,19 +35,19 @@ const navigation = {
           id: 'sneakers',
           name: 'Sneakers',
           href: '/sneakers',
-        
+
         },
         {
           id: 'clothes',
           name: 'Clothes',
           href: '/clothes'
-         
+
         },
         {
           id: 'accessories',
           name: 'Accessories',
-          href:'/accessories'
-         
+          href: '/accessories'
+
         },
       ],
     },
@@ -72,26 +73,26 @@ const navigation = {
           id: 'sneakersw',
           name: 'Sneakers',
           href: '/sneakers'
-          
+
         },
         {
           id: 'clothesw',
           name: 'Clothes',
           href: '/clothes'
-          
+
         },
         {
           id: 'accessoriesw',
           name: 'Accessories',
-          href:'/accessories'
-         
+          href: '/accessories'
+
         },
       ],
     },
   ],
   pages: [
     { name: 'All products', href: '/allproducts' },
-  
+
 
 
   ],
@@ -102,6 +103,7 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+ 
   const [open, setOpen] = useState(false)
 
   const [showModal, setShowModal] = useState(false);
@@ -190,7 +192,7 @@ export default function Navbar() {
                         {category.featured.map((item, index) => (
                           <div key={index} className="group relative text-sm">
                             <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75 relative">
-                              <Image src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" layout="fill"/>
+                              <Image src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" layout="fill" />
                             </div>
                             <div>
                               <Link href={item.href}>
@@ -209,7 +211,7 @@ export default function Navbar() {
                       {category.sections.map((section, index) => (
                         <div key={index}>
                           <Link href={section.href}>
-                            <p  className="font-medium text-gray-900">
+                            <p className="font-medium text-gray-900">
                               {section.name}
                             </p>
                           </Link>
@@ -314,6 +316,9 @@ export default function Navbar() {
               </div>
 
               {/* Flyout menus */}
+
+
+
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="h-full flex space-x-8">
                   {navigation.categories.map((category) => (
@@ -332,55 +337,61 @@ export default function Navbar() {
                               {category.name}
                             </Popover.Button>
                           </div>
+                         
 
-                          <Transition
-                            as={Fragment}
-                            enter="transition ease-out duration-200"
-                            enterFrom="opacity-0"
-                            enterTo="opacity-100"
-                            leave="transition ease-in duration-150"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
-                          >
-                            <Popover.Panel className="absolute top-full inset-x-0 text-sm text-gray-500 z-20">
-                              {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
-                              <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
 
-                              <div className="relative bg-white">
-                                <div className="max-w-7xl mx-auto px-8">
-                                  <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
-                                    <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                      {category.featured.map((item, index) => (
-                                        <div key={index} className="group relative text-base sm:text-sm">
-                                          <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75 relative">
-                                            <Image
-                                              src={item.imageSrc}
-                                              alt={item.imageAlt}
-                                              layout="fill"
-                                              className="object-center object-cover"
-                                            />
-                                          </div>
-                                          <Link href={item.href}>
-                                            <a className="mt-6 block font-medium text-gray-900">
-                                              <span className="absolute z-10 inset-0" aria-hidden="true" />
-                                              {item.name}
-                                            </a>
-                                          </Link>
-                                          <p aria-hidden="true" className="mt-1">
-                                            Shop now
-                                          </p>
-                                        </div>
-                                      ))}
-                                    </div>
-                                    <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
-                                      {category.sections.map((section, index) => (
-                                        <div key={index}>
-                                          <Link href={section.href}>
-                                            <p id={`${section.name}-heading`} className="cursor-pointer font-medium text-gray-900">
-                                              {section.name}
+                            <Transition
+                              as={Fragment}
+                              enter="transition ease-out duration-200"
+                              enterFrom="opacity-0"
+                              enterTo="opacity-100"
+                              leave="transition ease-in duration-150"
+                              leaveFrom="opacity-100"
+                              leaveTo="opacity-0"
+                            >
+                              <Popover.Panel className="absolute top-full inset-x-0 text-sm text-gray-500 z-20">
+                                {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
+                                <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
+
+                                <div className="relative bg-white">
+                                  <div className="max-w-7xl mx-auto px-8">
+                                    <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
+                                      <div className="col-start-2 grid grid-cols-2 gap-x-8">
+                                        {category.featured.map((item, index) => (
+                                          <div key={index} className="group relative text-base sm:text-sm">
+                                            <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75 relative">
+                                              <Image
+                                                src={item.imageSrc}
+                                                alt={item.imageAlt}
+                                                layout="fill"
+                                                className="object-center object-cover"
+                                              />
+                                            </div>
+                                           <Popover.Button>
+                                              <Link href={item.href}>
+                                                <a className="mt-6 block font-medium text-gray-900">
+                                                  <span className="absolute z-10 inset-0" aria-hidden="true" />
+                                                  {item.name}
+                                                </a>
+                                              </Link>
+                                           </Popover.Button>
+                                            <p aria-hidden="true" className="mt-1">
+                                              Shop now
                                             </p>
-                                          </Link>
-                                          {/* <ul
+                                          </div>
+                                        ))}
+                                      </div>
+                                      <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
+                                        {category.sections.map((section, index) => (
+                                          <div key={index}>
+                                            <Popover.Button>
+                                              <Link href={section.href}>
+                                                <p id={`${section.name}-heading`} className="cursor-pointer font-medium text-gray-900">
+                                                  {section.name}
+                                                </p>
+                                              </Link>
+                                            </Popover.Button>
+                                            {/* <ul
                                             role="list"
                                             aria-labelledby={`${section.name}-heading`}
                                             className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
@@ -395,24 +406,26 @@ export default function Navbar() {
                                               </li>
                                             ))}
                                           </ul> */}
-                                        </div>
-                                      ))}
+                                          </div>
+                                        ))}
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                            </Popover.Panel>
-                          </Transition>
+                              </Popover.Panel>
+                            </Transition>
                         </>
+
                       )}
                     </Popover>
                   ))}
 
+
                   {navigation.pages.map((page) => (
                     <Link href={page.href} key={page.name}>
- 
+
                       <a
-                       
+
 
                         className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                       >
