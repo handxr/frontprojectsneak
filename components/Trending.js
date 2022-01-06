@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 
 function Trending({ products }) {
-
+console.log(products)
 
   return (
     <div className="bg-white">
@@ -24,7 +24,7 @@ function Trending({ products }) {
               <div className=" relative w-full h-56 bg-gray-200 rounded-md overflow-hidden group-hover:opacity-75 lg:h-72 xl:h-80">
                 <Image
                   priority
-                  src={product.image}
+                  src={`/${product.image}`}
                   alt="product"
                   layout="fill"
                   placeholder="blur"
@@ -32,7 +32,7 @@ function Trending({ products }) {
                  
 
 
-                />
+                /> 
               </div>
               <h3 className="mt-4 text-sm font-bold text-gray-900">
                 <Link href={product.title.slice(" ")}>
