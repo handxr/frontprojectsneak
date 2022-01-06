@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
 export default function BasicModal(props) {
-  const { show, onClose, title, children } = props;
+  const { show, onClose, title, content } = props;
 
   return (
     <Transition.Root show={show} as={Fragment}>
@@ -44,7 +44,7 @@ export default function BasicModal(props) {
               <div className="text-2xl font-bold font-body">
                 {title && title}
               </div>
-              <div>{children}</div>
+              <div>{content}</div>
             </div>
           </Transition.Child>
         </div>

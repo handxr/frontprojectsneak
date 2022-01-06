@@ -488,7 +488,7 @@ export default function Navbar() {
         show={showModal}
         onClose={openCloseModal}
         title={titleModal}
-        children={contentModal}
+        content={contentModal}
       />
     </div>
   )
