@@ -23,7 +23,7 @@ const allproducts = ({ products }) => {
                                         placeholder="blur"
                                         blurDataURL
                                         priority
-                                        src={product.image}
+                                        src={`https://res.cloudinary.com/dna37h0hf/${product.image}`}
                                         alt="producto"
                                         className="w-full h-full object-center object-cover group-hover:opacity-75 cursor-pointer "
                                         layout="fill"

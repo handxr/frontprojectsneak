@@ -19,7 +19,7 @@ const clothes = ({clothes}) => {
                     placeholder="blur"
                     blurDataURL
                     priority
-                      src={clothe.image}
+                    src={`https://res.cloudinary.com/dna37h0hf/${clothe.image}`}
                       alt="clothe"
                       layout="fill"
                       className="w-full h-full object-center object-cover group-hover:opacity-75"
