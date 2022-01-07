@@ -7,7 +7,7 @@ const Product = () => {
   const [product, setProduct] = useState(null)
   const { query } = useRouter()
 
-  useEffect(async () => {
+  useEffect( () => {
     (async () => {
       const response = await getProductApi(query.product);
       setProduct(response);
