@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { getProductsApi } from '../api/product'
+import { getProductsApi, getProductApi } from '../api/product'
 
 export function useProduct() {
     const [products, setProducts] = useState(null)
+    const [product, setProduct] = useState(null)
     const getProducts = async () => {
         try {
             const response = await getProductsApi()
@@ -11,8 +12,20 @@ export function useProduct() {
             console.log(error)
         }
     }
+
+    const getProduct = async () => {
+        try {
+            const response = await getProductApi()
+            setProduct(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return {
         products,
-        getProducts
+        product,
+        getProducts,
+        getProduct,
     }
 }

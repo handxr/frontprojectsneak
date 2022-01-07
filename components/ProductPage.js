@@ -1,43 +1,11 @@
 
 import { useState } from 'react'
-import { StarIcon } from '@heroicons/react/solid'
+import Image from 'next/image'
 import { RadioGroup } from '@headlessui/react'
 import { CurrencyDollarIcon, GlobeIcon } from '@heroicons/react/outline'
 
-const product = {
-  name: 'Basic Tee',
-  price: '$35',
-  rating: 3.9,
-  reviewCount: 512,
-  href: '#',
-  breadcrumbs: [
-    { id: 1, name: 'Women', href: '#' },
-    { id: 2, name: 'Clothing', href: '#' },
-  ],
-  images: [
-    {
-      id: 1,
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-featured-product-shot.jpg',
-      imageAlt: "Back of women's Basic Tee in black.",
-      primary: true,
-    },
-    {
-      id: 2,
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-01.jpg',
-      imageAlt: "Side profile of women's Basic Tee in black.",
-      primary: false,
-    },
-    {
-      id: 3,
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-02.jpg',
-      imageAlt: "Front of women's Basic Tee in black.",
-      primary: false,
-    },
-  ],
-  colors: [
-    { name: 'Black', bgColor: 'bg-gray-900', selectedColor: 'ring-gray-900' },
-    { name: 'Heather Grey', bgColor: 'bg-gray-400', selectedColor: 'ring-gray-400' },
-  ],
+const producto = {
+
   sizes: [
     { name: 'XXS', inStock: true },
     { name: 'XS', inStock: true },
@@ -66,46 +34,47 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ProductPage() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0])
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+export default function ProductPage({ product }) {
+
+  const [selectedSize, setSelectedSize] = useState(producto.sizes[2])
 
   return (
     <div className="bg-white">
       <div className="pt-6 pb-16 sm:pb-24">
-        
+
         <div className="mt-8 max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="lg:grid lg:grid-cols-12 lg:auto-rows-min lg:gap-x-8">
             <div className="lg:col-start-8 lg:col-span-5">
               <div className="flex justify-between">
-                <h1 className="text-xl font-medium text-gray-900">{product.name}</h1>
-                <p className="text-xl font-medium text-gray-900">{product.price}</p>
+                <h1 className="text-xl font-medium text-gray-900">{product.title}</h1>
+                <p className="text-xl font-medium text-gray-900">{product.price}$</p>
               </div>
-             
+
             </div>
 
             {/* Image gallery */}
-            <div className="mt-8 lg:mt-0 lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3">
+            <div className="mt-8 lg:mt-0 lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3 relative">
               <h2 className="sr-only">Images</h2>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8">
-                {product.images.map((image) => (
-                  <img
-                    key={image.id}
-                    src={image.imageSrc}
-                    alt={image.imageAlt}
-                    className={classNames(
-                      image.primary ? 'lg:col-span-2 lg:row-span-2' : 'hidden lg:block',
-                      'rounded-lg'
-                    )}
-                  />
-                ))}
-              </div>
+
+
+              <Image
+
+                src={`https://res.cloudinary.com/dna37h0hf/${product.image}`}
+                priority
+                
+                placeholder="blur"
+                blurDataURL
+                className="rounded-lg cover"
+                layout="fill"
+              />
+
+
             </div>
 
             <div className="mt-8 lg:col-span-5">
               <form>
-                
+
 
                 {/* Size picker */}
                 <div className="mt-8">
@@ -119,7 +88,7 @@ export default function ProductPage() {
                   <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-2">
                     <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
                     <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
-                      {product.sizes.map((size) => (
+                      {producto.sizes.map((size) => (
                         <RadioGroup.Option
                           key={size.name}
                           value={size}
@@ -156,7 +125,7 @@ export default function ProductPage() {
 
                 <div
                   className="mt-4 prose prose-sm text-gray-500"
-                  dangerouslySetInnerHTML={{ __html: product.description }}
+                  dangerouslySetInnerHTML={{ __html: producto.description }}
                 />
               </div>
 
@@ -165,7 +134,7 @@ export default function ProductPage() {
 
                 <div className="mt-4 prose prose-sm text-gray-500">
                   <ul role="list">
-                    {product.details.map((item) => (
+                    {producto.details.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
