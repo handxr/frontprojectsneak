@@ -19,7 +19,7 @@ console.log(products)
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
-          {products.reverse().slice(0, 4).map((product) => (
+          {products.slice(0, 4).map((product) => (
             <div key={product.id} className="group relative">
               <div className=" relative w-full h-56 bg-gray-200 rounded-md overflow-hidden group-hover:opacity-75 lg:h-72 xl:h-80">
                 <Image

@@ -1,30 +1,47 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { ProductPage, RelatedProducts } from './../components'
 
-import { useRouter } from 'next/router'
-import { getProductApi } from '../api/product'
-const Product = () => {
-  const [product, setProduct] = useState(null)
-  const { query } = useRouter()
+import { getProductApi, getProductsApi } from '../api/product'
+const Product = ({ product }) => {
+  console.log(product)
 
-  useEffect( () => {
-    (async () => {
-      const response = await getProductApi(query.product);
-      setProduct(response);
-    })();
-  }, [query])
-  if(!product) return null;
- 
+
+
 
   return (
     <div>
-      <ProductPage product={product}/>
+      <ProductPage product={product} />
       <RelatedProducts />
     </div>
   )
 }
 
+export async function getStaticPaths() {
+  const products = await getProductsApi()
 
+  const paths = products.map(product => ({
+    params: {
+      product: product.title
+    },
+  }))
+
+
+  return { paths, fallback: false }
+
+
+}
+
+export async function getStaticProps({ params }) {
+
+  const product = await getProductApi(params.product)
+
+
+  return {
+    props: {
+      product,
+    },
+  };
+}
 
 
 export default Product
