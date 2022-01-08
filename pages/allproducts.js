@@ -2,6 +2,7 @@ import React from 'react'
 import { getProductsApi } from '../api/product'
 import Image from 'next/image'
 import Link from 'next/link'
+import { CLOUDINARY }from '../utils/constants'
 
 
 
@@ -23,7 +24,7 @@ const allproducts = ({ products }) => {
                                         placeholder="blur"
                                         blurDataURL
                                         priority
-                                        src={`https://res.cloudinary.com/dna37h0hf/${product.image}`}
+                                        src={`${CLOUDINARY}${product.image}`}
                                         alt="producto"
                                         className="w-full h-full object-center object-cover group-hover:opacity-75 cursor-pointer "
                                         layout="fill"

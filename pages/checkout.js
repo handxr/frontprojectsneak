@@ -1,20 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import { CheckCircleIcon, TrashIcon } from '@heroicons/react/solid'
+import { useProduct } from '../hooks/'
+import { getProductsCart } from '../api/cart'
+import Image from 'next/image'
+import { removeProductCartApi } from '../api/cart'
+import { forEach } from 'lodash'
+import {CLOUDINARY} from '../utils/constants'
 
-const products = [
-  {
-    id: 1,
-    title: 'Basic Tee',
-    href: '#',
-    price: '$32.00',
-    color: 'Black',
-    size: 'Large',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-  },
-  // More products...
-]
 const deliveryMethods = [
   { id: 1, title: 'Standard', turnaround: '4–10 business days', price: '$5.00' },
   { id: 2, title: 'Express', turnaround: '2–5 business days', price: '$16.00' },
@@ -30,7 +23,42 @@ function classNames(...classes) {
 }
 
 export default function Checkout() {
+  const [products, setProducts] = useState(null)
+  const [total, setTotal] = useState(0)
+  const [reloadCart, setReloadCart] = useState(false)
+  const { getProductById } = useProduct()
+  useEffect(() => {
+    (async () => {
+      const idProductsCart = getProductsCart()
+
+      const productsArray = []
+      for await (const idProduct of idProductsCart) {
+
+        const response = await getProductById(idProduct)
+        productsArray.push(response)
+      }
+      setProducts(productsArray)
+    })()
+  }, [reloadCart])
+
+  const onReloadCart = () => setReloadCart((prev) => !prev)
+
+  const removeProduct = (index) => {
+    removeProductCartApi(index)
+    onReloadCart()
+  }
+
+  useEffect(() => {
+    let totalTemp = 0;
+    forEach(products, (product) => {
+      totalTemp += Number(product.price)
+    })
+    setTotal(totalTemp.toFixed(2))
+  }, [products])
+
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(deliveryMethods[0])
+
+
 
   return (
     <div className="bg-gray-50">
@@ -371,67 +399,55 @@ export default function Checkout() {
 
             <div className="mt-4 bg-white border border-gray-200 rounded-lg shadow-sm">
               <h3 className="sr-only">Items in your cart</h3>
-              <ul role="list" className="divide-y divide-gray-200">
-                {products.map((product) => (
-                  <li key={product.id} className="flex py-6 px-4 sm:px-6">
-                    <div className="flex-shrink-0">
-                      <img src={product.imageSrc} alt={product.imageAlt} className="w-20 rounded-md" />
-                    </div>
-
-                    <div className="ml-6 flex-1 flex flex-col">
-                      <div className="flex">
-                        <div className="min-w-0 flex-1">
-                          <h4 className="text-sm">
-                            <a href={product.href} className="font-medium text-gray-700 hover:text-gray-800">
-                              {product.title}
-                            </a>
-                          </h4>
-                          <p className="mt-1 text-sm text-gray-500">{product.color}</p>
-                          <p className="mt-1 text-sm text-gray-500">{product.size}</p>
+              {!products ? (
+                <p>Loading...</p>
+              ) : (
+                products.length >= 1 && (
+                  <ul role="list" className="divide-y divide-gray-200">
+                    {products.map((product, index) => (
+                      <li key={index} className="flex py-6 px-4 sm:px-6">
+                        <div className="flex-shrink-0">
+                          <Image src={`${CLOUDINARY}${product.image}`} alt="product" width={80} height={80} className=" rounded-md" />
                         </div>
 
-                        <div className="ml-4 flex-shrink-0 flow-root">
-                          <button
-                            type="button"
-                            className="-m-2.5 bg-white p-2.5 flex items-center justify-center text-gray-400 hover:text-gray-500"
-                          >
-                            <span className="sr-only">Remove</span>
-                            <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                          </button>
-                        </div>
-                      </div>
+                        <div className="ml-6 flex-1 flex flex-col">
+                          <div className="flex">
+                            <div className="min-w-0 flex-1">
+                              <h4 className="text-sm">
+                                <a className="font-medium text-gray-700 hover:text-gray-800">
+                                  {product.title}
+                                </a>
+                              </h4>
 
-                      <div className="flex-1 pt-2 flex items-end justify-between">
-                        <p className="mt-1 text-sm font-medium text-gray-900">{product.price}</p>
+                            </div>
 
-                        <div className="ml-4">
-                          <label htmlFor="quantity" className="sr-only">
-                            Quantity
-                          </label>
-                          <select
-                            id="quantity"
-                            name="quantity"
-                            className="rounded-md border border-gray-300 text-base font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          >
-                            <option value={1}>1</option>
-                            <option value={2}>2</option>
-                            <option value={3}>3</option>
-                            <option value={4}>4</option>
-                            <option value={5}>5</option>
-                            <option value={6}>6</option>
-                            <option value={7}>7</option>
-                            <option value={8}>8</option>
-                          </select>
+                            <div className="ml-4 flex-shrink-0 flow-root">
+                              <button
+                                type="button"
+                                className="-m-2.5 bg-white p-2.5 flex items-center justify-center text-gray-400 hover:text-gray-500"
+                              >
+                                <span className="sr-only">Remove</span>
+                                <TrashIcon className="h-5 w-5" aria-hidden="true" onClick={() => removeProduct(index)} />
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="flex-1 pt-2 flex items-end justify-between">
+                            <p className="mt-1 text-sm font-medium text-gray-900">{product.price}</p>
+
+
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+                      </li>
+                    ))}
+                  </ul>
+                )
+              )}
+
               <dl className="border-t border-gray-200 py-6 px-4 space-y-6 sm:px-6">
                 <div className="flex items-center justify-between">
                   <dt className="text-sm">Subtotal</dt>
-                  <dd className="text-sm font-medium text-gray-900">$64.00</dd>
+                  <dd className="text-sm font-medium text-gray-900">{total}$</dd>
                 </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-sm">Shipping</dt>
@@ -443,7 +459,7 @@ export default function Checkout() {
                 </div>
                 <div className="flex items-center justify-between border-t border-gray-200 pt-6">
                   <dt className="text-base font-medium">Total</dt>
-                  <dd className="text-base font-medium text-gray-900">$75.52</dd>
+                  <dd className="text-base font-medium text-gray-900">{total}$</dd>
                 </div>
               </dl>
 

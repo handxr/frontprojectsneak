@@ -3,6 +3,8 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { RadioGroup } from '@headlessui/react'
 import { CurrencyDollarIcon, GlobeIcon } from '@heroicons/react/outline'
+import { addProductCart } from '../api/cart'
+import {toast} from 'react-toastify'
 
 const producto = {
 
@@ -38,6 +40,12 @@ export default function ProductPage({ product }) {
 
   const [selectedSize, setSelectedSize] = useState(producto.sizes[2])
 
+  const addCart = (product) => {
+    addProductCart(product.id)
+    toast.success(`${product.title} added to the cart`)
+  }
+
+  
   return (
     <div className="bg-white">
       <div className="pt-6 pb-16 sm:pb-24">
@@ -52,9 +60,9 @@ export default function ProductPage({ product }) {
 
             </div>
 
+
             {/* Image gallery */}
-            <div className="mt-8 lg:mt-0 lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3 relative">
-              <h2 className="sr-only">Images</h2>
+            <div className="mt-8 lg:mt-0 lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3  ">
 
 
 
@@ -62,11 +70,12 @@ export default function ProductPage({ product }) {
 
                 src={`https://res.cloudinary.com/dna37h0hf/${product.image}`}
                 priority
-                
+
                 placeholder="blur"
                 blurDataURL
                 className="rounded-lg cover"
-                layout="fill"
+                width={700}
+                height={830}
               />
 
 
@@ -112,7 +121,8 @@ export default function ProductPage({ product }) {
                 </div>
 
                 <button
-                  type="submit"
+                onClick={() => addCart(product)}
+                  type="button"
                   className="mt-8 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Add to cart

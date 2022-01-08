@@ -1,5 +1,5 @@
 import React from 'react'
-import { BASE_API } from '../utils/constants'
+import { BASE_API, CLOUDINARY } from '../utils/constants'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -19,7 +19,7 @@ const clothes = ({clothes}) => {
                     placeholder="blur"
                     blurDataURL
                     priority
-                    src={`https://res.cloudinary.com/dna37h0hf/${clothe.image}`}
+                    src={`${CLOUDINARY}${clothe.image}`}
                       alt="clothe"
                       layout="fill"
                       className="w-full h-full object-center object-cover group-hover:opacity-75"

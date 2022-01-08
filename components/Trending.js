@@ -1,10 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { CLOUDINARY } from '../utils/constants'
 
 
 function Trending({ products }) {
-console.log(products)
+
 
   return (
     <div className="bg-white">
@@ -24,7 +25,7 @@ console.log(products)
               <div className=" relative w-full h-56 bg-gray-200 rounded-md overflow-hidden group-hover:opacity-75 lg:h-72 xl:h-80">
                 <Image
                   priority
-                  src={`https://res.cloudinary.com/dna37h0hf/${product.image}`}
+                  src={`${CLOUDINARY}${product.image}`}
                   alt="product"
                   layout="fill"
                   placeholder="blur"
